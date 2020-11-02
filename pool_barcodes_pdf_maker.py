@@ -7,6 +7,9 @@
 # sample barcode in the 3rd column and the pool barcode in the 1st column.
 # The other columns are ignored.
 #
+# To use the script, you need Python 3 and the ReportLab package
+# to install the latter, type:  pip install reportlab
+#
 # written by PG Anders, ZMBH, Univ Heidelberg, November 2020
 # for Virology Dept, Heidelberg Univ Hospital 
 
@@ -58,8 +61,9 @@ def write_pdf( input_csv, output_pdf ):
 	barcode_canvas = canvas.Canvas(output_pdf, pagesize=A4)
 	barcode_canvas.setLineWidth(.3)
 	page_number = 1
-	write_header( barcode_canvas, "Page %d for '%s'" % ( page_number, input_csv, ) )
+	write_header( barcode_canvas, "Page %d for '%s'" % ( page_number, input_csv ) )
 
+	# These two integers will track the current position on the grid defined above.
 	grid_row = 0
 	grid_col = 0
 
@@ -83,7 +87,7 @@ def write_pdf( input_csv, output_pdf ):
 			grid_row = 0
 
 		if grid_row != 0:
-			# We didn't start a new page, so let's make a line (one row higher)
+			# We didn't start a new page, so let's make a line a bit above
 			line_ypos = .3*gridpos_y[ grid_row-2 ] + .7*gridpos_y[ grid_row-1 ]
 			barcode_canvas.line( 1*cm , line_ypos , A4[0] - 1*cm, line_ypos )
 
@@ -104,7 +108,7 @@ def write_pdf( input_csv, output_pdf ):
 
 			grid_col += 1
 
-		# Start new row
+		# Move down a bit before starting the next pool
 		grid_row += 2
 		grid_col = 0
 
