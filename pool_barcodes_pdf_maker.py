@@ -69,10 +69,10 @@ def write_pdf(input_csv, output_pdf, columns = 4, rows = 9):
 					c = 0
 					barcode_canvas.showPage()
 			else:
-				if c < (rows - 1):
-					c += 1
-				else:
+				if c >= (rows - 1):
 					c = 0
+				else:
+					c += 1
 				i = 0
 			x_p = x_coords[i]*inch
 			y_p = xy_coords[c][1]
