@@ -65,34 +65,23 @@ def write_pdf(input_csv, output_pdf, columns = 4, rows = 9):
 		c += 1
 		for record in result[pool]:
 			if i < columns:
-				if c < (rows - 1):
-					x_p = x_coords[i]*inch
-					y_p = xy_coords[c][1]
-					write_barcode(record, barcode_canvas, x_p, y_p, [0.01, 0.6])
-					i += 1
-				else:
+				if c >= (rows - 1):
 					c = 0
 					barcode_canvas.showPage()
-					x_p = x_coords[i]*inch
-					y_p = xy_coords[c][1]
-					write_barcode(record, barcode_canvas, x_p, y_p, [0.01, 0.6])
-					i += 1
+				x_p = x_coords[i]*inch
+				y_p = xy_coords[c][1]
+				write_barcode(record, barcode_canvas, x_p, y_p, [0.01, 0.6])
+				i += 1
 			else:
 				if c < (rows - 1):
-					i = 0
 					c += 1
-					x_p = x_coords[i]*inch
-					y_p = xy_coords[c][1]
-					write_barcode(record, barcode_canvas, x_p, y_p, [0.01, 0.6])
-					i += 1
 				else:
-					i = 0
 					c = 0
-					barcode_canvas.showPage()
-					x_p = x_coords[i]*inch
-					y_p = xy_coords[c][1]
-					write_barcode(record, barcode_canvas, x_p, y_p, [0.01, 0.6])
-					i += 1
+				i = 0
+				x_p = x_coords[i]*inch
+				y_p = xy_coords[c][1]
+				write_barcode(record, barcode_canvas, x_p, y_p, [0.01, 0.6])
+				i += 1
 
 		if c < (rows - 4):
 			c += 1
